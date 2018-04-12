@@ -91,6 +91,9 @@ class Country
     {
         return $this->lottos;
     }
-
     
+    public function __toString()
+    {
+        return $this->countryName;
+    }
 }

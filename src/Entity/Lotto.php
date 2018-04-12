@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LottoRepository")
@@ -31,6 +32,17 @@ class Lotto
      * @ORM\JoinColumn(nullable=true)
      */
     private $country;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Result", mappedBy="lotto")
+     */
+    private $results;
+    
+    public function __construct()
+    {
+        $this->results = new ArrayCollection();
+    }
+    
     /**
      * @return mixed
      */
@@ -58,7 +70,7 @@ class Lotto
     /**
      * @return mixed
      */
-    public function getCountry() : Country
+    public function getCountry()
     {
         return $this->country;
     }
@@ -94,5 +106,14 @@ class Lotto
     {
         $this->country = $country;
     }
+    
+    public function __toString()
+    {
+        return $this->lottoName;
+    }
 
+    public function getResults()
+    {
+        return $this->results;
+    }
 }
